@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FoodShare - Community Rezepte Platform">
+    <title>FoodShare | Community Rezepte</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header food-header">
+        <div class="header-content">
+            <h1>🍽️ FoodShare</h1>
+            <p class="subtitle">Community Rezepte von Food-Influencern</p>
+        </div>
+    </header>
+
+    <!-- ============================================= -->
+    <!-- MENÜ ANSICHT (wird zuerst angezeigt) -->
+    <!-- ============================================= -->
+    <main class="main" id="menuView">
+        <section class="recipes-section">
+            <h2 class="section-title">🔥 Beliebte Rezepte der Community</h2>
+            <p class="section-subtitle">Klicke auf ein Rezept um es anzusehen</p>
+            
+            <div class="recipe-menu-grid">
+                <!-- Menü Item 1: Zitronenkuchen -->
+                <div class="menu-card" data-recipe-id="1">
+                    <div class="menu-image-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400" 
+                            alt="Zitronenkuchen"
+                            class="menu-image"
+                        >
+                        <span class="recipe-badge">🏆 Top Rezept</span>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Saftiger Zitronenkuchen</h3>
+                        <p class="recipe-author">von @backfee_maria</p>
+                        <div class="recipe-meta">
+                            <span>⏱️ 45 Min</span>
+                            <span>❤️ 2.4k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menü Item 2: Tomatensuppe -->
+                <div class="menu-card" data-recipe-id="2">
+                    <div class="menu-image-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" 
+                            alt="Tomatensuppe"
+                            class="menu-image"
+                        >
+                        <span class="recipe-badge new">✨ Neu</span>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Cremige Tomatensuppe</h3>
+                        <p class="recipe-author">von @veggie_chef_tom</p>
+                        <div class="recipe-meta">
+                            <span>⏱️ 30 Min</span>
+                            <span>❤️ 1.8k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menü Item 3: Caesar Salat -->
+                <div class="menu-card" data-recipe-id="3">
+                    <div class="menu-image-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400" 
+                            alt="Caesar Salat"
+                            class="menu-image"
+                        >
+                        <span class="recipe-badge popular">🌟 Beliebt</span>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Klassischer Caesar Salat</h3>
+                        <p class="recipe-author">von @healthy_lisa</p>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min</span>
+                            <span>❤️ 3.1k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================= -->
+    <!-- DETAIL ANSICHT (wird nach Klick angezeigt) -->
+    <!-- ============================================= -->
+    <main class="main hidden" id="detailView">
+        <!-- Zurück Button -->
+        <div class="back-navigation">
+            <button class="btn btn-back" id="backToMenu">
+                ← Zurück zum Menü
+            </button>
+        </div>
+
+        <!-- AI Control Panel -->
+        <div class="ai-control-panel">
+            <div class="control-container">
+                <div class="control-buttons">
+                    <button class="btn btn-outline active" id="showWithoutAI">
+                        🚫 Ohne AI-Script
+                    </button>
+                    <button class="btn btn-primary" id="enableAI">
+                        🤖 Mit AI-Script
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rezept 1: Zitronenkuchen -->
+        <section class="recipe-detail-section hidden" id="recipe-detail-1">
+            <article class="recipe-detail-card">
+                <div class="recipe-detail-header">
+                    <img 
+                        src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800" 
+                        alt=""
+                        class="recipe-detail-image"
+                        id="detail-image-1"
+                        tabindex="0"
+                    >
+                    <span class="recipe-badge">🏆 Top Rezept</span>
+                </div>
+                <div class="recipe-detail-body">
+                    <h2 class="recipe-detail-title">Saftiger Zitronenkuchen</h2>
+                    <p class="recipe-detail-author">von <strong>@backfee_maria</strong></p>
+                    <p class="recipe-detail-description">
+                        Dieser saftige Zitronenkuchen mit frischem Zitronensaft und cremigem Zuckerguss 
+                        ist der perfekte Begleiter zum Nachmittagskaffee.
+                    </p>
+                    <div class="recipe-detail-meta">
+                        <span>⏱️ 45 Min</span>
+                        <span>👨‍🍳 Einfach</span>
+                        <span>❤️ 2.4k</span>
+                    </div>
+                    <div class="alt-text-display" id="alt-display-1">
+                        <h4>🖼️ Alt-Text für Screenreader:</h4>
+                        <code class="alt-text-content">""</code>
+                        <span class="alt-status empty">(leer - Screenreader sagt nur "Grafik")</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Rezept 2: Tomatensuppe -->
+        <section class="recipe-detail-section hidden" id="recipe-detail-2">
+            <article class="recipe-detail-card">
+                <div class="recipe-detail-header">
+                    <img 
+                        src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800" 
+                        alt=""
+                        class="recipe-detail-image"
+                        id="detail-image-2"
+                        tabindex="0"
+                    >
+                    <span class="recipe-badge new">✨ Neu</span>
+                </div>
+                <div class="recipe-detail-body">
+                    <h2 class="recipe-detail-title">Cremige Tomatensuppe</h2>
+                    <p class="recipe-detail-author">von <strong>@veggie_chef_tom</strong></p>
+                    <p class="recipe-detail-description">
+                        Samtig-cremige Tomatensuppe aus sonnengereiften Tomaten, 
+                        verfeinert mit frischem Basilikum und knusprigen Croutons.
+                    </p>
+                    <div class="recipe-detail-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👨‍🍳 Einfach</span>
+                        <span>❤️ 1.8k</span>
+                    </div>
+                    <div class="alt-text-display" id="alt-display-2">
+                        <h4>🖼️ Alt-Text für Screenreader:</h4>
+                        <code class="alt-text-content">""</code>
+                        <span class="alt-status empty">(leer - Screenreader sagt nur "Grafik")</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Rezept 3: Caesar Salat -->
+        <section class="recipe-detail-section hidden" id="recipe-detail-3">
+            <article class="recipe-detail-card">
+                <div class="recipe-detail-header">
+                    <img 
+                        src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800" 
+                        alt=""
+                        class="recipe-detail-image"
+                        id="detail-image-3"
+                        tabindex="0"
+                    >
+                    <span class="recipe-badge popular">🌟 Beliebt</span>
+                </div>
+                <div class="recipe-detail-body">
+                    <h2 class="recipe-detail-title">Klassischer Caesar Salat</h2>
+                    <p class="recipe-detail-author">von <strong>@healthy_lisa</strong></p>
+                    <p class="recipe-detail-description">
+                        Der Klassiker unter den Salaten: Knackiger Romana-Salat mit 
+                        cremigem Caesar-Dressing, Parmesan und hausgemachten Croutons.
+                    </p>
+                    <div class="recipe-detail-meta">
+                        <span>⏱️ 20 Min</span>
+                        <span>👨‍🍳 Einfach</span>
+                        <span>❤️ 3.1k</span>
+                    </div>
+                    <div class="alt-text-display" id="alt-display-3">
+                        <h4>🖼️ Alt-Text für Screenreader:</h4>
+                        <code class="alt-text-content">""</code>
+                        <span class="alt-status empty">(leer - Screenreader sagt nur "Grafik")</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section class="evaluation-section" id="evaluationSection">
+            <h2 class="section-title">📊 Evaluation: Screenreader-Erfahrung</h2>
+            
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>Metrik</th>
+                        <th>Beschreibung</th>
+                        <th>Ohne AI</th>
+                        <th>Mit AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Verständlichkeit</strong></td>
+                        <td>Ist der Text leicht verständlich?</td>
+                        <td class="rating-bad">❌ "Grafik" oder URL</td>
+                        <td class="rating-good" id="eval-1">⏳ Warte auf AI...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Relevanz</strong></td>
+                        <td>Beschreibt der Text das Wesentliche?</td>
+                        <td class="rating-bad">❌ Keine Beschreibung</td>
+                        <td class="rating-good" id="eval-2">⏳ Warte auf AI...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vollständigkeit</strong></td>
+                        <td>Sind wichtige Details enthalten?</td>
+                        <td class="rating-bad">❌ Keine Details</td>
+                        <td class="rating-good" id="eval-3">⏳ Warte auf AI...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prägnanz</strong></td>
+                        <td>Ist der Text kurz und bündig?</td>
+                        <td class="rating-neutral">➖ N/A</td>
+                        <td class="rating-good" id="eval-4">⏳ Warte auf AI...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kontextklarheit</strong></td>
+                        <td>Passt der Text zum Rezept-Kontext?</td>
+                        <td class="rating-bad">❌ Kein Kontext</td>
+                        <td class="rating-good" id="eval-5">⏳ Warte auf AI...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            <strong>AI-Reader Demo</strong> | Web Engineering Hackathon<br>
+            Hochschule Campus Wien | Fadime Konuk, Rukayah Jabr, Lulu Wang
+        </p>
+    </footer>
+
+    <!-- Screenreader Live Region - liest Text vor wenn aktualisiert -->
+    <div id="screenreader-output" 
+         aria-live="assertive" 
+         aria-atomic="true" 
+         class="sr-only"
+         role="status">
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ai-reader.js"></script>
+    <script src="js/foodshare-demo.js"></script>
+</body>
+</html>
