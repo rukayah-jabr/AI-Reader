@@ -2,6 +2,7 @@
   "name": "ai-reader-frontend",
   "version": "1.0.0",
   "description": "Simple recipe gallery with accessibility features",
+  "type": "module",
   "main": "index.html",
   "scripts": {
     "serve": "http-server . -p 8000 -c-1",
@@ -23,5 +24,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/rukayah-jabr/AI-Reader.git"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
   }
 }
