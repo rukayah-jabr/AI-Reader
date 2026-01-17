@@ -1,301 +1,235 @@
-# AI-Reader 🤖
+# AI-Reader 🤖📖 (AI-Generated Branch)
 
-> KI-gestütztes Tool für automatische Accessibility für Bilder und Audios in dynamischen Web Apps
+> **Automatische KI-gestützte Alt-Text-Generierung** - Bilder werden dynamisch beim Laden analysiert
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-green.svg)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.0+-red.svg)](https://flask.palletsprojects.com)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-3.0+-000000?logo=flask)](https://flask.palletsprojects.com)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4V-412991?logo=openai)](https://openai.com)
+[![Node.js](https://img.shields.io/badge/Node.js-npm-339933?logo=node.js)](https://nodejs.org)
 
-## 📋 Überblick
+---
 
-AI-Reader ist ein Prototyp, der im Rahmen des **Web Engineering Hackathons** an der Hochschule Campus Wien entwickelt wurde. Das Tool automatisiert die Erstellung von Accessibility-Metadaten für Medieninhalte:
+## 🎯 Branch-Besonderheit: AI-Generated
 
-- **🖼️ Alt-Text-Generierung**: Automatische Bildbeschreibungen für Screenreader
-- **🎵 Audio-Transkription**: Speech-to-Text für Audioinhalte
-- **⚡ Dynamische Integration**: Nahtlose Einbindung in moderne Web-Apps
+Dieser Branch unterscheidet sich vom `simple` Branch durch **automatische Alt-Text-Generierung**:
 
-## 🎯 Motivation
+| Feature | simple Branch | ai-generated Branch |
+|---------|---------------|---------------------|
+| Alt-Texte | Statisch im HTML | **Dynamisch via KI generiert** |
+| Backend-Aufruf | Bei User-Interaktion | **Automatisch beim Laden** |
+| Bilder `alt=""` | Vordefiniert | **Leer → KI füllt sie** |
 
-Barrierefreiheit (Accessibility) ist durch **WCAG** und den **European Accessibility Act** klar geregelt. Dennoch fehlen vielen Webanwendungen grundlegende Accessibility-Features wie Alt-Texte und Transkripte. AI-Reader automatisiert diese Aufgaben und entlastet Entwicklerteams.
-
-## 🏗️ Architektur
-
+### Ablauf:
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Frontend (Browser)                        │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │    HTML     │    │ JavaScript  │    │   AI-Reader.js      │  │
-│  │  <img>      │◄───│   Library   │◄───│   DOM Manipulation  │  │
-│  │  <audio>    │    │             │    │                     │  │
-│  └─────────────┘    └──────┬──────┘    └─────────────────────┘  │
-└────────────────────────────┼────────────────────────────────────┘
-                             │ REST API
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                     Backend (Flask Server)                       │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │   Routes    │    │  Services   │    │      Config         │  │
-│  │  /image/*   │───►│ ImageService│───►│  API Keys           │  │
-│  │  /audio/*   │    │ AudioService│    │  Settings           │  │
-│  └─────────────┘    └──────┬──────┘    └─────────────────────┘  │
-└────────────────────────────┼────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      Externe KI-APIs                             │
-│  ┌─────────────────────┐    ┌─────────────────────────────────┐ │
-│  │   OpenAI GPT-4V     │    │      OpenAI Whisper             │ │
-│  │   Bilderkennung     │    │      Speech-to-Text             │ │
-│  └─────────────────────┘    └─────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
+1. Seite lädt → Bilder haben leere alt=""
+2. JavaScript ruft Backend API für jedes Bild auf
+3. GPT-4 Vision analysiert jedes Bild
+4. Alt-Texte werden in data-alt-text gespeichert
+5. Bei Focus wird der generierte Alt-Text angezeigt
 ```
 
-## 🚀 Quick Start
+---
+
+## 🏗️ Projektstruktur
+
+```
+AI-Reader/
+├── backend/
+│   ├── app.py              # Flask Application Factory
+│   ├── config.py           # Konfiguration
+│   ├── routes/
+│   │   ├── image_routes.py # POST /api/image/describe-url
+│   │   ├── audio_routes.py
+│   │   └── health_routes.py
+│   └── services/
+│       ├── image_service.py # GPT-4 Vision Integration
+│       └── audio_service.py
+├── frontend/
+│   ├── index.html          # Demo: Rezepte Galerie
+│   ├── package.json        # npm Scripts (serve, dev)
+│   ├── css/styles.css
+│   └── js/
+│       └── app.js          # 🔥 Automatische Alt-Text-Generierung
+├── requirements.txt
+└── .env.example
+```
+
+---
+
+## 🚀 Schnellstart
 
 ### 1. Repository klonen
-
 ```bash
-git clone <repository-url>
+git clone https://github.com/rukayah-jabr/AI-Reader.git
 cd AI-Reader
+git checkout ai-generated
 ```
 
 ### 2. Backend einrichten
 
 ```bash
-# Virtual Environment erstellen
+# Python Virtual Environment
 python -m venv venv
-
-# Aktivieren (Windows)
-venv\Scripts\activate
-
-# Aktivieren (macOS/Linux)
-source venv/bin/activate
+.\venv\Scripts\activate    # Windows
+# source venv/bin/activate # Linux/Mac
 
 # Dependencies installieren
 pip install -r requirements.txt
-```
 
-### 3. API-Keys konfigurieren
+# API-Key konfigurieren
+copy .env.example .env
+# .env bearbeiten: OPENAI_API_KEY=sk-...
 
-```bash
-# .env Datei erstellen
-cp .env.example .env
-
-# .env bearbeiten und API-Key eintragen
-# OPENAI_API_KEY=sk-your-api-key-here
-```
-
-### 4. Backend starten
-
-```bash
+# Backend starten
 cd backend
 python app.py
 ```
+🟢 Backend läuft auf `http://localhost:5000`
 
-Der Server läuft auf `http://localhost:5000`
-
-### 5. Frontend öffnen
-
-Öffnen Sie `frontend/index.html` in Ihrem Browser oder starten Sie einen lokalen Server:
+### 3. Frontend starten
 
 ```bash
-# Mit Python
 cd frontend
-python -m http.server 3000
 
-# Oder mit VS Code Live Server Extension
+# Option A: Mit npm
+npm install
+npm run dev
+
+# Option B: Mit Python
+python -m http.server 8000
+```
+🌐 Frontend auf `http://localhost:8000`
+
+---
+
+## 🔄 Wie die Alt-Text-Generierung funktioniert
+
+### Frontend (`js/app.js`)
+
+```javascript
+// Beim Laden werden alle Bilder analysiert
+const BACKEND_URL = 'http://localhost:5000/api/image/describe-url';
+
+async function generateAltTexts(images) {
+    for (const img of images) {
+        const response = await fetch(BACKEND_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                url: img.src,
+                language: 'de',
+                context: `Rezept: ${recipeName}`
+            })
+        });
+        const data = await response.json();
+        img.setAttribute('data-alt-text', data.alt_text);
+    }
+}
 ```
 
-## 📁 Projektstruktur
-
-```
-AI-Reader/
-├── backend/
-│   ├── app.py              # Flask Hauptanwendung
-│   ├── config.py           # Konfigurationsverwaltung
-│   ├── routes/
-│   │   ├── health_routes.py    # Health Check Endpoints
-│   │   ├── image_routes.py     # Bild-API Endpoints
-│   │   └── audio_routes.py     # Audio-API Endpoints
-│   └── services/
-│       ├── image_service.py    # KI-Bilderkennung
-│       └── audio_service.py    # KI-Transkription
-├── frontend/
-│   ├── index.html          # Demo-Webseite
-│   ├── css/
-│   │   └── styles.css      # Styling
-│   └── js/
-│       ├── ai-reader.js    # Haupt-Library
-│       └── demo.js         # Demo-Logik
-├── requirements.txt        # Python Dependencies
-├── .env.example           # Beispiel-Konfiguration
-└── README.md
-```
-
-## 🔌 API Referenz
-
-### Health Check
-
-```http
-GET /api/health
-```
-
-### Bild beschreiben (Upload)
-
-```http
-POST /api/image/describe
-Content-Type: multipart/form-data
-
-image: <file>
-language: de|en
-context: <optional context>
-```
-
-### Bild beschreiben (URL)
+### Backend Endpoint
 
 ```http
 POST /api/image/describe-url
 Content-Type: application/json
 
 {
-  "url": "https://example.com/image.jpg",
+  "url": "https://example.com/bild.jpg",
   "language": "de",
-  "context": "Website Header"
+  "context": "Rezept: Zitronenkuchen"
 }
 ```
 
-### Audio transkribieren (Upload)
-
-```http
-POST /api/audio/transcribe
-Content-Type: multipart/form-data
-
-audio: <file>
-language: de|en
-```
-
-### Audio transkribieren (URL)
-
-```http
-POST /api/audio/transcribe-url
-Content-Type: application/json
-
+**Response:**
+```json
 {
-  "url": "https://example.com/audio.mp3",
-  "language": "de"
+  "success": true,
+  "alt_text": "Goldgelber Zitronenkuchen mit Puderzucker, garniert mit Zitronenscheiben"
 }
 ```
 
-## 💻 JavaScript Integration
+---
 
-### Basis-Verwendung
+## 📡 API Endpoints
 
-```html
-<script src="js/ai-reader.js"></script>
-<script>
-  const aiReader = new AIReader({
-    apiUrl: 'http://localhost:5000/api',
-    language: 'de',
-    autoScan: true
-  });
-  
-  // Automatisch alle Bilder und Audios verarbeiten
-  aiReader.init();
-</script>
+| Endpoint | Methode | Beschreibung |
+|----------|---------|--------------|
+| `/api/image/describe-url` | POST | Alt-Text für Bild-URL generieren |
+| `/api/audio/transcribe` | POST | Audio transkribieren |
+| `/api/health` | GET | Health Check |
+
+---
+
+## 🔧 Konfiguration
+
+### `.env` Datei
+
+```env
+OPENAI_API_KEY=sk-...          # Erforderlich für GPT-4 Vision
+GOOGLE_AI_API_KEY=...          # Optional (Fallback)
+FLASK_DEBUG=True
+PORT=5000
 ```
 
-### Erweiterte Konfiguration
+### `package.json` Scripts
 
-```javascript
-const aiReader = new AIReader({
-  apiUrl: 'http://localhost:5000/api',
-  language: 'de',
-  autoScan: true,
-  scanInterval: 5000,
-  batchSize: 10,
-  debug: true,
-  
-  onImageProcessed: (element, response) => {
-    console.log('Alt-Text generiert:', response.alt_text);
-  },
-  
-  onAudioProcessed: (element, response) => {
-    console.log('Transkript erstellt:', response.transcript);
-  },
-  
-  onError: (error) => {
-    console.error('Fehler:', error);
+```json
+{
+  "scripts": {
+    "serve": "http-server . -p 8000 -c-1",
+    "dev": "http-server . -p 8000 -c-1 --open"
   }
-});
+}
 ```
 
-### Manuelle Verarbeitung
+---
 
-```javascript
-// Einzelnes Bild verarbeiten
-const img = document.querySelector('#myImage');
-await aiReader.processImage(img);
+## 🎨 Demo: Rezepte Galerie
 
-// Einzelne Audio verarbeiten
-const audio = document.querySelector('#myAudio');
-await aiReader.processAudio(audio);
+Die Demo zeigt **dynamische Alt-Text-Generierung** für Rezeptbilder:
 
-// Alle unverarbeiteten Elemente scannen
-await aiReader.scanAndProcess();
+| Rezept | Bilder | Alt-Text Beispiel |
+|--------|--------|-------------------|
+| 🍰 Zitronenkuchen | 3 | *"Saftiger Gugelhupf mit Zitronenglasur"* |
+| 🍲 Tomatensuppe | 3 | *"Cremige rote Suppe mit Basilikum"* |
+| 🥗 Caesar Salat | 3 | *"Frischer Salat mit Parmesan und Croutons"* |
+
+**Console-Output beim Laden:**
+```
+🎨 Generiere Alt-Texte für 9 Bilder...
+📤 Sende Request für zitronenkuchen...
+✅ zitronenkuchen: "Goldgelber Zitronenkuchen..."
+✨ Alt-Text Generierung abgeschlossen!
 ```
 
-## ⚙️ Konfiguration
+---
 
-### Umgebungsvariablen (.env)
+## 🆚 Vergleich der Branches
 
-| Variable | Beschreibung | Default |
-|----------|--------------|---------|
-| `OPENAI_API_KEY` | OpenAI API Key | - |
-| `GOOGLE_AI_API_KEY` | Google AI API Key (Alternative) | - |
-| `FLASK_ENV` | Environment (development/production) | development |
-| `PORT` | Server Port | 5000 |
-| `DEFAULT_LANGUAGE` | Standardsprache | de |
-| `ALT_TEXT_MAX_LENGTH` | Max. Länge Alt-Text | 250 |
+| Aspekt | `simple` | `ai-generated` |
+|--------|----------|----------------|
+| **Workflow** | Alt-Text statisch | Alt-Text dynamisch generiert |
+| **API-Aufrufe** | Bei Nutzer-Aktion | Automatisch beim Laden |
+| **Use Case** | Manuell gepflegte Bilder | CMS/dynamische Inhalte |
+| **API-Kosten** | Niedrig | Höher (jedes Bild = 1 Request) |
 
-## 📊 Technologien
-
-### Backend
-- **Flask 3.0** - Web Framework
-- **OpenAI API** - GPT-4 Vision & Whisper
-- **Flask-CORS** - Cross-Origin Support
-
-### Frontend
-- **Vanilla JavaScript** - Keine Dependencies
-- **Modern CSS** - CSS Variables, Grid, Flexbox
-- **Fetch API** - HTTP Requests
-
-### KI-Services
-- **GPT-4 Vision** - Bilderkennung
-- **Whisper** - Speech-to-Text
-- **Google Gemini** (Alternative)
-
-## ⚠️ Limitationen
-
-- Das Tool garantiert keine vollständige WCAG-Konformität
-- KI-generierte Inhalte können ungenau sein
-- Es werden nur Bilder und Audios unterstützt (keine Videos)
-- Keine Unterstützung für ARIA-Rollen oder Versionierung
+---
 
 ## 👥 Team
 
-- **Fadime Konuk**
-- **Rukayah Jabr**
-- **Lulu Wang**
+**Autoren:** Rukayah Jabr, Fadime Konuk, Lulu Wang
 
-Hochschule Campus Wien | Software Design & Engineering
+Entwickelt im Rahmen des **Web Engineering Hackathons** an der FH Campus Wien.
+
+---
 
 ## 📄 Lizenz
 
-MIT License - siehe [LICENSE](LICENSE)
+MIT License
 
-## 🔗 Referenzen
+---
 
-- [WCAG Guidelines](https://www.w3.org/WAI/standards-guidelines/wcag/)
-- [European Accessibility Act](https://digital-strategy.ec.europa.eu/en/policies/european-accessibility-act)
-- [WebAIM](https://webaim.org/)
-- [OpenAI API](https://platform.openai.com/docs/)
+<div align="center">
+
+**🤖 Accessibility durch KI - Automatisch & Barrierefrei**
+
+</div>
