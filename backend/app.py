@@ -17,8 +17,8 @@ def create_app(config_class=None):
         config_class = get_config()
     app.config.from_object(config_class)
     
-    # Initialize CORS
-    CORS(app, origins=app.config.get('ALLOWED_ORIGINS', '*'))
+    # Initialize CORS - Allow all origins for development
+    CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=False)
     
     # Register blueprints
     from routes.image_routes import image_bp

@@ -1,0 +1,27 @@
+{
+  "name": "ai-reader-frontend",
+  "version": "1.0.0",
+  "description": "Simple recipe gallery with accessibility features",
+  "main": "index.html",
+  "scripts": {
+    "serve": "http-server . -p 8000 -c-1",
+    "dev": "http-server . -p 8000 -c-1 --open",
+    "build": "echo 'No build needed for vanilla JS'",
+    "test": "echo 'Tests not configured'"
+  },
+  "keywords": [
+    "recipes",
+    "gallery",
+    "accessibility",
+    "wcag"
+  ],
+  "author": "Rukayah Jabr, Fadime Konuk, Lulu Wang",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rukayah-jabr/AI-Reader.git"
+  }
+}
