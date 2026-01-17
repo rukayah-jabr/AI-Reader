@@ -1,10 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
+
+// === Node ESM Fix für __dirname ===
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // === Konfiguration ===
 const BACKEND_URL = 'http://localhost:5000/api/image/describe-url';
-const HTML_FILE = path.join('..', 'index.html'); // Pfad zur HTML-Datei
+
+// Pfad zur index.html relativ zum Script (../index.html)
+const HTML_FILE = path.join(__dirname, '../index.html');
+
 
 // Hilfsfunktion: sendet Request ans Backend
 async function getAltText(imageUrl, recipeName) {

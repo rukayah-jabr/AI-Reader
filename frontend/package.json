@@ -7,8 +7,9 @@
   "scripts": {
     "serve": "http-server . -p 8000 -c-1",
     "dev": "http-server . -p 8000 -c-1 --open",
-    "build": "echo 'No build needed for vanilla JS'",
-    "test": "echo 'Tests not configured'"
+    "test": "echo 'Tests not configured'",
+    "generate-alt": "node js/generate-alt-text.js",
+    "build": "npm run generate-alt"
   },
   "keywords": [
     "recipes",
@@ -26,6 +27,7 @@
     "url": "https://github.com/rukayah-jabr/AI-Reader.git"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "axios": "^1.6.8"
   }
 }
